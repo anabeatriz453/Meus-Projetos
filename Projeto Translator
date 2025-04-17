@@ -1,0 +1,245 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "toc_visible": true,
+      "authorship_tag": "ABX9TyNvMpAQUxFYhVm1B9ThAIsl",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/anabeatriz453/Meus-Projetos/blob/main/Projeto%20Translator\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "A9nDsq1T0t1e",
+        "outputId": "9ce02107-f4e5-4818-99e3-f5c6de8cc33e"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: requests in /usr/local/lib/python3.11/dist-packages (2.32.3)\n",
+            "Collecting python-docx\n",
+            "  Downloading python_docx-1.1.2-py3-none-any.whl.metadata (2.0 kB)\n",
+            "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests) (3.4.1)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests) (3.10)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.11/dist-packages (from requests) (2.3.0)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests) (2025.1.31)\n",
+            "Requirement already satisfied: lxml>=3.1.0 in /usr/local/lib/python3.11/dist-packages (from python-docx) (5.3.2)\n",
+            "Requirement already satisfied: typing-extensions>=4.9.0 in /usr/local/lib/python3.11/dist-packages (from python-docx) (4.13.1)\n",
+            "Downloading python_docx-1.1.2-py3-none-any.whl (244 kB)\n",
+            "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m244.3/244.3 kB\u001b[0m \u001b[31m5.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hInstalling collected packages: python-docx\n",
+            "Successfully installed python-docx-1.1.2\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install requests python-docx"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import requests                            # Biblioteca para fazer requisições HTTP\n",
+        "from docx import Document                  # Biblioteca para manipular arquivos do Word\n",
+        "import os                                  # Biblioteca para funcionalidades do sistema operacional\n",
+        "\n",
+        "subscription_key =\"491aCfi3zPlZLxeiAjVluVuPQktHo0JQgGJYUqI1Vngzz4Cc5OgFJQQJ99BDACHYHv6XJ3w3AAAbACOGotpd\"             # Chave de assinatura para acessar a API.\n",
+        "endpoint = \"https://api.cognitive.microsofttranslator.com\"                                                           # URL base da API do Microsoft Translator.\n",
+        "location = \"eastus2\"                                                                                                 # Região do serviço na nuvem.\n",
+        "target_language = \"pt-br\"                                                                                            # Idioma de destino para a tradução.\n",
+        "\n",
+        "def translator_text(text, target_language):               # Esta função recebe um texto em inglês e o traduz para o idioma especificado.\n",
+        "    path = \"/translate\"                                   # Define o caminho específico para tradução dentro da API.\n",
+        "    constructed_url = endpoint + path                     #Cria a URL completa para requisição.\n",
+        "\n",
+        "    headers = {\n",
+        "        \"Ocp-Apim-Subscription-Key\": subscription_key,                   # Autentica a solicitação com a chave de assinatura.\n",
+        "        \"Ocp-Apim-Subscription-Region\": location,                        # Especifica a região da API.\n",
+        "        \"Content-type\": \"application/json\",                              # Define o tipo de conteúdo da requisição como JSON.\n",
+        "        \"X-ClientTraceId\": str(os.urandom(16))                           # Gera um identificador aleatório para rastrear a requisição.\n",
+        "    }\n",
+        "\n",
+        "    body = [{\"text\": text}]                      # Contém o texto a ser traduzido dentro de uma lista de dicionário.\n",
+        "\n",
+        "    params = {\n",
+        "        \"api-version\": \"3.0\",                    # Define a versão da API usada.\n",
+        "        \"from\": \"en\",                            # Idioma de origem do texto (\"en\" para inglês).\n",
+        "        \"to\": target_language                    # Idioma de destino (target_language, que é \"pt-br\" no código)\n",
+        "    }\n",
+        "\n",
+        "    request = requests.post(constructed_url, params=params, headers=headers, json=body)                # Usa para enviar os dados à API.\n",
+        "    response = request.json()                                                                          # Recebe a resposta da API e a transforma em JSON\n",
+        "    return response[0][\"translations\"][0][\"text\"]                                                      # Acessa o primeiro elemento da resposta e extrai o texto traduzido.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "XxORDDhf1l2p"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "translator_text (\"I used to rule the world  ,   Seas would rise when I gave the word   ,  Now in the morning, I sleep alone ,  Sweep the streets I used to own\" , target_language)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 35
+        },
+        "id": "RsTaE9_x2QdD",
+        "outputId": "84af894e-9f64-4c42-a81f-d487d8c020ff"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'Eu costumava governar o mundo, os mares subiam quando eu dava a palavra, agora de manhã, durmo sozinho, varro as ruas que eu costumava possuir'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def translate_text(path):                   # Define a função que traduz um documento a partir do caminho fornecido\n",
+        "    document = Document(path)               # Abre o documento usando a biblioteca python-docx\n",
+        "    full_text = []                          # Inicializa uma lista vazia para armazenar os textos traduzidos\n",
+        "\n",
+        "    for paragraph in document.paragraphs:                                               # Repete sobre cada parágrafo do documento\n",
+        "        translated_text = translator_text(paragraph.text, language_destination)         # Traduz o texto do parágrafo / Chama translator_text(paragraph.text, language_destination), que traduz cada parágrafo para language_destination (variável que deve conter o idioma de destino).\n",
+        "        full_text.append(translated_text)                                               # Adiciona o texto traduzido à lista full_text\n",
+        "\n",
+        "    translated_doc = Document()                  # Cria um novo documento Word vazio para armazenar a versão traduzida\n",
+        "    for line in full_text:                       # Repete sobre cada linha da lista de textos traduzidos\n",
+        "        print(line)                              # Exibe o texto traduzido no console\n",
+        "        translated_doc.add_paragraph(line)       # Adiciona o texto traduzido como um novo parágrafo no novo documento\n",
+        "\n",
+        "    path_translated = path.replace(\".docx\", f\"_{language_destination}.docx\")           # Define um novo nome para o arquivo traduzido / Gera um nome para o novo arquivo substituindo .docx por _idioma.docx, onde language_destination representa o idioma escolhido para a tradução.\n",
+        "    translated_doc.save(path_translated)                                               # Salva o novo documento com o nome gerado.\n",
+        "    return path_translated                                                             # Retorna o caminho do arquivo traduzido\n",
+        "\n",
+        "input_file = \"/content/MUSICA.docx\"                  # Define o caminho do arquivo de entrada\n",
+        "translate_document(input_file)                       # Chama a função para traduzir o documento\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 886
+        },
+        "id": "NiqDdZulz4aJ",
+        "outputId": "347589e9-224f-482e-9c9e-e6ada39563fa"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Eu costumava governar o mundo\n",
+            "Os mares subiriam quando eu desse a palavra\n",
+            "Agora de manhã, eu durmo sozinho\n",
+            "Varrer as ruas que eu costumava possuir\n",
+            "Eu costumava rolar os dados\n",
+            "Sinta o medo nos olhos do meu inimigo\n",
+            "Ouça como a multidão cantaria\n",
+            "Agora o velho rei está morto, viva o rei\n",
+            "Um minuto, eu segurei a chave\n",
+            "Em seguida, as paredes foram fechadas para mim\n",
+            "E eu descobri que meus castelos estão\n",
+            "Sobre pilares de sal e pilares de areia\n",
+            "Eu ouço sinos de Jerusalém tocando\n",
+            "Coros da cavalaria romana estão cantando\n",
+            "Seja meu espelho, minha espada e escudo\n",
+            "Meus missionários em um campo estrangeiro\n",
+            "Por alguma razão, não consigo explicar\n",
+            "Uma vez que você se foi, nunca, nunca houve uma palavra honesta\n",
+            "E foi quando eu governei o mundo\n",
+            "Era um vento perverso e selvagem\n",
+            "Derrubou as portas para me deixar entrar\n",
+            "Janelas quebradas e o som de tambores\n",
+            "As pessoas não podiam acreditar no que eu me tornei\n",
+            "Revolucionários esperam\n",
+            "Para a minha cabeça em uma placa de prata\n",
+            "Apenas um fantoche em uma corda solitária\n",
+            "Ah, quem iria querer ser rei?\n",
+            "Eu ouço sinos de Jerusalém tocando\n",
+            "Coros de cavalaria romana estão cantando\n",
+            "Seja meu espelho, minha espada e escudo\n",
+            "Meus missionários em um campo estrangeiro\n",
+            "Por alguma razão, não consigo explicar\n",
+            "Eu sei que São Pedro não vai chamar meu nome\n",
+            "Nunca uma palavra honesta\n",
+            "Mas foi quando eu governei o mundo\n",
+            "Oh-oh-oh, oh-oh, oh\n",
+            "Oh-oh-oh, oh-oh, oh\n",
+            "Oh-oh-oh, oh-oh, oh\n",
+            "Oh-oh-oh, oh-oh, oh\n",
+            "Oh-oh-oh, oh-oh, oh\n",
+            "Eu ouço sinos de Jerusalém tocando\n",
+            "Coros da cavalaria romana estão cantando\n",
+            "Seja meu espelho, minha espada e escudo\n",
+            "Meus missionários em um campo estrangeiro\n",
+            "Por alguma razão que eu não posso explicar\n",
+            "Eu sei que São Pedro não vai chamar meu nome\n",
+            "Nunca uma palavra honesta\n",
+            "Mas foi quando eu governei o mundo\n",
+            "\n"
+          ]
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'/content/MUSICA_pt.docx'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 15
+        }
+      ]
+    }
+  ]
+}
