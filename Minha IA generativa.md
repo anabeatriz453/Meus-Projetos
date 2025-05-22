@@ -19,3 +19,8 @@ O projeto entregou:
 
 ## 💭 Reflexão 
 - Utilizar IA neste projeto trouxe um desafio interessante: equilibrar a eficiência tecnológica com a essência criativa humana. Será que conseguimos ser 'natty' ao reinventar a criatividade?
+
+## Video da Minha IA generativa
+
+https://github.com/user-attachments/assets/f5ad110a-249a-4b5c-bd8c-07d6bb603ca5
+
