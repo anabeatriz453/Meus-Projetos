@@ -6,9 +6,9 @@
 ## 🛠️ Ferramentas Utilizadas
 
 - Azure Machine Learning Studio – Para configurar e executar o AutoML.
-- 
+
 - Azure CLI / SDK Python – Para automação e deploy.
-- 
+
 - Compute Cluster do Azure ML – Ambiente de treinamento.
 
 ## 🎯 Objetivos
