@@ -1,6 +1,6 @@
 # Detecção de Rostos com Vision Studio
 
-##📌 Introdução
+## 📌 Introdução
 - Este projeto demonstra como detectar rostos em imagens usando o Vision Studio no Azure AI Vision, salvando os resultados e insights obtidos.
 
 # 🛠️ Ferramentas Utilizadas
