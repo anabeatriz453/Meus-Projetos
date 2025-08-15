@@ -1,13 +1,22 @@
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/01d016b8-5a21-4d6c-a7aa-76c6f3b5083a" alt="Mega Man Robots API" width="400"/>
+<h1 align="center">
   <br />
-  <b style="font-size: 72px;">Mega Man Robots API</b>
+  <img
+    src="https://github.com/user-attachments/assets/01d016b8-5a21-4d6c-a7aa-76c6f3b5083a"
+    alt="Mega Man Robots API"
+    width="400"
+  />
   <br />
-  <sub><sup style="font-size: 28px;">(MEGA-MAN-ROBOTS)</sup></sub>
+  <b>Mega Man Robots API</b>
   <br />
+  <sub><sup><b>(MEGA-MAN-ROBOTS)</b></sup></sub>
+  <br />
+</h1>
 
+---
 
 # 🤖 MegaApiDotnetCor
+
+---
 
 # Sobre a API
 
